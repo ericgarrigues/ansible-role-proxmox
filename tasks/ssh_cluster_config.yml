@@ -36,7 +36,9 @@
       Host {{ hostvars[host].pve_cluster_ssh_addrs | join(" ") }}
           IdentityFile /root/.ssh/id_ed25519
           Port {{ pve_ssh_port }}
+      {% if not pve_ssh_host_key_checking %}
           StrictHostKeyChecking no
+      {% endif %}
       {% endfor %}
 
 - name: Allow root logins from PVE cluster hosts
